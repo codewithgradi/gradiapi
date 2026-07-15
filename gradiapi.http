@@ -1,0 +1,6 @@
+@gradiapi_HostAddress = http://localhost:5142
+
+GET {{gradiapi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
