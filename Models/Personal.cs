@@ -4,6 +4,7 @@ namespace GradiApi.Models
 {
   class Personal
   {
+    public int Id { get; set; }
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string Role { get; set; } = string.Empty;
@@ -13,6 +14,7 @@ namespace GradiApi.Models
     public List<string> Hobbies { get; set; }
     public List<string> Skills { get; set; }
     public List<string> ProgrammingLanguages { get; set; }
+    public List<string> TechStack { get; set; }
     public Socials? Socials { get; set; }
 
 
