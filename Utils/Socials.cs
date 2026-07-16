@@ -1,6 +1,6 @@
 namespace GradiApi.Utils
 {
-  class Socials
+  public class Socials
   {
     public string? Platform { get; set; }
     public string? Link { get; set; }

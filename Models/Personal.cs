@@ -1,8 +1,8 @@
 using GradiApi.Utils;
-
+using GradiApi.Models;
 namespace GradiApi.Models
 {
-  class Personal
+  public class Personal
   {
     public int Id { get; set; }
     public string FirstName { get; set; } = string.Empty;
