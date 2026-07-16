@@ -2,7 +2,7 @@ using GradiApi.DTO;
 
 namespace GradiApi.Interface;
 
-public interface IExperience
+public interface IExperienceRepo
 {
   Task<GetExperienceDto> GetExperience();
   Task<GetExperienceDto> CreateExperience();
