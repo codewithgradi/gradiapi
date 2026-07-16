@@ -1,11 +1,12 @@
 using GradiApi.DTO;
+using GradiApi.Models;
 
 namespace GradiApi.Interface;
 
 public interface IProjectsRepo
 {
-  Task<GetProjectDto> GetProjects();
-  Task<GetProjectDto> CreateProject();
-  Task UpdateProject();
+  Task<List<Project>> GetProjects();
+  Task<Project> CreateProject();
+  Task<Project> UpdateProject(PostProjectDto dto);
 
 }

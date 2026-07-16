@@ -1,4 +1,4 @@
-namespace GradiApi.Services;
+namespace GradiApi.Extentions;
 
 using GradiApi.Mappings;
 using GradiApi.Repo;

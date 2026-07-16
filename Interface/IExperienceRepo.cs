@@ -1,11 +1,12 @@
 using GradiApi.DTO;
+using GradiApi.Models;
 
 namespace GradiApi.Interface;
 
 public interface IExperienceRepo
 {
-  Task<GetExperienceDto> GetExperience();
-  Task<GetExperienceDto> CreateExperience();
-  Task UpdateExperience();
+  Task<List<Experience>> GetExperience();
+  Task<Experience> CreateExperience();
+  Task<Experience> UpdateExperience(PostExperienceDto dto);
 
 }

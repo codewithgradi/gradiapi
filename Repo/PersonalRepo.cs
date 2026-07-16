@@ -1,22 +1,23 @@
 using GradiApi.DTO;
 using GradiApi.Interface;
+using GradiApi.Models;
 
 
 namespace GradiApi.Repo;
 
 public class PersonalRepo : IPersonalRepo
 {
-  public Task<GetPersonalDto> CreateProfile()
+  public Task<Personal> CreateProfile()
   {
     throw new NotImplementedException();
   }
 
-  public Task<GetPersonalDto> GetProfile()
+  public Task<Personal> GetProfile()
   {
     throw new NotImplementedException();
   }
 
-  public Task UpdateProfile()
+  Task<Personal> IPersonalRepo.UpdateProfile(PostPersonalDto updated)
   {
     throw new NotImplementedException();
   }
