@@ -1,27 +1,41 @@
 using GradiApi.Utils;
-namespace GradiApi.Models
+using System.ComponentModel.DataAnnotations;
+namespace GradiApi.DTO
 {
-  public class Personal
+  public class PostPersonalDto
   {
-    public int Id { get; set; }
+    [Required]
     public string FirstName { get; set; } = string.Empty;
+    [Required]
+
     public string LastName { get; set; } = string.Empty;
+    [Required]
+
     public string Role { get; set; } = string.Empty;
+    [Required]
+
     public string Location { get; set; } = string.Empty;
+    [Required]
+
     public string Image { get; set; } = string.Empty;
+    [Required]
+
     public string Bio { get; set; } = string.Empty;
+    [Required]
+
     public List<string> Hobbies { get; set; }
+    [Required]
+
     public List<string> Skills { get; set; }
+    [Required]
+
     public List<string> ProgrammingLanguages { get; set; }
+    [Required]
+
     public List<string> TechStack { get; set; }
+    [Required]
+
     public Socials? Socials { get; set; }
-    public DateTime UpdatedAt { get; set; }
-
-    public int ExperienceId { get; set; }
-    public int ProjectId { get; set; }
-    public List<Project> Projects { get; set; }
-    public List<Experience> Experiences { get; set; }
-
   }
 
 }

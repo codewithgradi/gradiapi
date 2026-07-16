@@ -1,7 +1,8 @@
 using GradiApi.Utils;
-namespace GradiApi.Models
+using GradiApi.Models;
+namespace GradiApi.DTO
 {
-  public class Personal
+  public class GetPersonalDto
   {
     public int Id { get; set; }
     public string FirstName { get; set; } = string.Empty;
@@ -15,10 +16,6 @@ namespace GradiApi.Models
     public List<string> ProgrammingLanguages { get; set; }
     public List<string> TechStack { get; set; }
     public Socials? Socials { get; set; }
-    public DateTime UpdatedAt { get; set; }
-
-    public int ExperienceId { get; set; }
-    public int ProjectId { get; set; }
     public List<Project> Projects { get; set; }
     public List<Experience> Experiences { get; set; }
 
