@@ -1,6 +1,6 @@
 namespace GradiApi.Models
 {
-  class Projects
+  class Project
   {
     public int Id { get; set; }
     public string Title { get; set; } = string.Empty;
@@ -9,7 +9,7 @@ namespace GradiApi.Models
     public string GitHub { get; set; } = string.Empty;
     public string LiveDemo { get; set; } = string.Empty;
     public List<string> Tools { get; set; }
-
+    public DateTime UpdatedAt { get; set; }
 
   }
 }

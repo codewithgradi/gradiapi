@@ -16,9 +16,7 @@ namespace GradiApi.Models
     public List<string> ProgrammingLanguages { get; set; }
     public List<string> TechStack { get; set; }
     public Socials? Socials { get; set; }
-
-
-
+    public DateTime UpdatedAt { get; set; }
 
   }
 
