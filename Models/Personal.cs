@@ -12,7 +12,6 @@ namespace GradiApi.Models
     public string Bio { get; set; } = string.Empty;
     public List<string> Hobbies { get; set; }
     public List<string> Skills { get; set; }
-    public List<string> TechStack { get; set; }
     public List<string> ProgrammingLanguages { get; set; }
     public Socials? Socials { get; set; }
 
