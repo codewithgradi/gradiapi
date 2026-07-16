@@ -18,6 +18,11 @@ namespace GradiApi.Models
     public Socials? Socials { get; set; }
     public DateTime UpdatedAt { get; set; }
 
+    public int ExperienceId { get; set; }
+    public int ProjectId { get; set; }
+    public List<Project> Projects { get; set; }
+    public List<Experience> Experiences { get; set; }
+
   }
 
 }
