@@ -2,17 +2,12 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copy solution and project files first
-COPY *.sln ./
-# ⬇️ Changed to lowercase to match your repository's casing
-COPY gradiapi/*.csproj ./gradiapi/
-
+# Copy the csproj file from the current root directory
+COPY *.csproj ./
 RUN dotnet restore
 
-# Copy the remaining source files and build the app
+# Copy all your local source code folders (Controllers, Data, Models, etc.)
 COPY . .
-# ⬇️ Changed to lowercase here as well
-WORKDIR /src/gradiapi
 RUN dotnet publish -c Release -o /app/publish /p:UseAppHost=false
 
 # STAGE 2: Final Runtime
@@ -20,8 +15,8 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 COPY --from=build /app/publish .
 
+# Force the container to expose traffic on port 8080 for Render
 ENV ASPNETCORE_URLS=http://+:8080
 EXPOSE 8080
 
-# ⬇️ Make sure the output DLL matches your project assembly name
 ENTRYPOINT ["dotnet", "gradiapi.dll"]
