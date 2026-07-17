@@ -5,8 +5,8 @@ namespace GradiApi.Interface;
 
 public interface IPersonalRepo
 {
-  Task<Personal> GetProfile();
-  Task<Personal> CreateProfile();
-  Task<Personal> UpdateProfile(PostPersonalDto updated);
+  Task<Personal> GetProfile(int id);
+  Task<Personal> CreateProfile(Personal personal);
+  Task<Personal> UpdateProfile(PostPersonalDto updated, int id);
 
 }
