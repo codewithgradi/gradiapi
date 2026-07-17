@@ -1,12 +1,15 @@
 using GradiApi.Extentions;
 
-
+DotNetEnv.Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddEnvironmentVariables();
+
+builder.Services.AddControllers();
 builder.Services.AddOpenApi();
+
 builder.Services
-.AddEnvironmentVariables()
 .AllowCors(builder.Configuration)
 .LoadDb(builder.Configuration)
 .AddGlobalException()
@@ -26,6 +29,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.MapControllers();
 
 app.Run();
 

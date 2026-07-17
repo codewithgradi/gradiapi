@@ -10,7 +10,7 @@ public class PersonalController : ControllerBase
 {
   private readonly PersonalService _service;
 
-  public PersonalController(PersonalService service)
+  public PersonalController([FromBody] PersonalService service)
   {
     _service = service;
   }

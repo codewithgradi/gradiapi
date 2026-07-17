@@ -26,8 +26,10 @@ public class ExperienceRepo : IExperienceRepo
   public async Task<List<Experience>> GetExperience()
   {
     var exp = await _context.Experiences.ToListAsync();
-    if (exp == null) throw new ReasourceNotFoundException("no experience could be loaded");
-    if (exp.Count == 0) throw new Exception("You have no experience");
+    if (exp == null)
+    {
+      return new List<Experience>();
+    }
     return exp;
   }
 
