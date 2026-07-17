@@ -2,7 +2,7 @@ using GradiApi.Models;
 using Microsoft.EntityFrameworkCore;
 namespace GradiApi.Data
 {
-  class AppDbContext : DbContext
+  public class AppDbContext : DbContext
   {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     { }

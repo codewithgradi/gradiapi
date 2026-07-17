@@ -6,7 +6,7 @@ namespace GradiApi.Interface;
 public interface IProjectsRepo
 {
   Task<List<Project>> GetProjects();
-  Task<Project> CreateProject();
-  Task<Project> UpdateProject(PostProjectDto dto);
+  Task<Project> CreateProject(Project p);
+  Task<Project> UpdateProject(PostProjectDto dto, int id);
 
 }

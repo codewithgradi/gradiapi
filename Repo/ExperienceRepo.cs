@@ -1,23 +1,49 @@
+using GradiApi.Data;
 using GradiApi.DTO;
+using GradiApi.Exceptions;
 using GradiApi.Interface;
 using GradiApi.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GradiApi.Repo;
 
 public class ExperienceRepo : IExperienceRepo
 {
-  public Task<Experience> CreateExperience()
+  private readonly AppDbContext _context;
+
+  public ExperienceRepo(AppDbContext context)
   {
-    throw new NotImplementedException();
+    _context = context;
+  }
+  public async Task<Experience> CreateExperience(Experience create)
+  {
+
+    await _context.Experiences.AddAsync(create);
+    await _context.SaveChangesAsync();
+    return create;
   }
 
-  public Task<List<Experience>> GetExperience()
+  public async Task<List<Experience>> GetExperience()
   {
-    throw new NotImplementedException();
+    var exp = await _context.Experiences.ToListAsync();
+    if (exp == null) throw new ReasourceNotFoundException("no experience could be loaded");
+    if (exp.Count == 0) throw new Exception("You have no experience");
+    return exp;
   }
 
-  public Task<Experience> UpdateExperience(PostExperienceDto updateddto)
+  public async Task<Experience> UpdateExperience(PostExperienceDto updateddto, int id)
   {
-    throw new NotImplementedException();
+    var exp = await _context.Experiences.FirstOrDefaultAsync(x => x.Id == id);
+    if (exp == null) throw new ReasourceNotFoundException("Could not find experience");
+
+    exp.Company = updateddto.Company;
+    exp.FromYear = updateddto.FromYear;
+    exp.CurrentlyHere = updateddto.CurrentlyHere;
+    exp.Role = updateddto.Role;
+    exp.UpdatedAt = DateTime.UtcNow;
+    exp.ToYear = updateddto.ToYear;
+
+    await _context.SaveChangesAsync();
+    return exp;
   }
 }

@@ -6,7 +6,7 @@ namespace GradiApi.Interface;
 public interface IExperienceRepo
 {
   Task<List<Experience>> GetExperience();
-  Task<Experience> CreateExperience();
-  Task<Experience> UpdateExperience(PostExperienceDto dto);
+  Task<Experience> CreateExperience(Experience experience);
+  Task<Experience> UpdateExperience(PostExperienceDto dto, int id);
 
 }
