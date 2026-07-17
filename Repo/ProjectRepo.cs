@@ -27,8 +27,7 @@ public class ProjectRepo : IProjectsRepo
   public async Task<List<Project>> GetProjects()
   {
     var projects = await _context.Projects.ToListAsync();
-    if (projects == null) throw new ReasourceNotFoundException("No Projects were not found");
-    if (projects.Count == 0) throw new ReasourceNotFoundException("Zero Projects");
+    if (projects == null) return new List<Project>();
     return projects;
   }
 
