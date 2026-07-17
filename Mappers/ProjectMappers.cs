@@ -8,4 +8,5 @@ public partial class ProjectMappers
 {
   public partial GetProjectDto MapFromGet(Project project);
   public partial GetProjectDto MapFromPost(PostProjectDto project);
+  public partial Project MapToModel(PostProjectDto project);
 }

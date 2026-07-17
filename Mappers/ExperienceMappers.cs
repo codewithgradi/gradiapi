@@ -7,4 +7,5 @@ using Riok.Mapperly.Abstractions;
 public partial class ExperienceMappers
 {
   public partial GetExperienceDto MapFromGet(Experience experience);
+  public partial Experience MapToModel(PostExperienceDto experience);
 }

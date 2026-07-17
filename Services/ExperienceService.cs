@@ -22,17 +22,18 @@ public class ExperienceService
     var dtos = model.Select(x => _mapper.MapFromGet(x)).ToList();
     return dtos;
   }
-  public async Task<GetExperienceDto> Put(PostExperienceDto updateddto)
+  public async Task<GetExperienceDto> Put(PostExperienceDto updateddto, int id)
   {
-    var updated = await _repo.UpdateExperience(updateddto);
+    var updated = await _repo.UpdateExperience(updateddto, id);
     if (updated == null) throw new ReasourceConflictException("Could not update experience details");
     var dto = _mapper.MapFromGet(updated);
     return dto;
 
   }
-  public async Task<GetExperienceDto> Post()
+  public async Task<GetExperienceDto> Post(PostExperienceDto p, int id)
   {
-    var model = await _repo.CreateExperience();
+    var toModel = _mapper.MapToModel(p);
+    var model = await _repo.CreateExperience(toModel, id);
     if (model == null) throw new BusinessRuleException("Could not create experience details");
     var dto = _mapper.MapFromGet(model);
     return dto;

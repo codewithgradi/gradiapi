@@ -14,8 +14,10 @@ public class PersonalConfig : IEntityTypeConfiguration<Personal>
     .WithOne(x => x.Personal)
     .HasForeignKey(x => x.PersonalId);
 
-    builder.HasMany(x => x.Experiences)
+    builder.HasMany(x => x.Projects)
     .WithOne(x => x.Personal)
     .HasForeignKey(x => x.PersonalId);
+
+    builder.OwnsMany(p => p.Socials);
   }
 }

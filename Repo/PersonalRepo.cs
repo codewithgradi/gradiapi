@@ -25,7 +25,9 @@ public class PersonalRepo : IPersonalRepo
 
   public async Task<Personal> GetProfile(int id)
   {
-    var p = await _context.Personal.FirstOrDefaultAsync(x => x.Id == id);
+    var p = await _context
+    .Personal.Include(x => x.Experiences).Include(x => x.Projects).
+    FirstOrDefaultAsync(x => x.Id == id);
     if (p == null) throw new ReasourceNotFoundException("No profile");
     return p;
   }

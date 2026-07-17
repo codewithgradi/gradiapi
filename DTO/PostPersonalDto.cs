@@ -35,7 +35,7 @@ namespace GradiApi.DTO
     public List<string> TechStack { get; set; }
     [Required]
 
-    public Socials? Socials { get; set; }
+    public List<Socials>? Socials { get; set; }
   }
 
 }

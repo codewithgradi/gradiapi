@@ -15,9 +15,9 @@ public class ExperienceRepo : IExperienceRepo
   {
     _context = context;
   }
-  public async Task<Experience> CreateExperience(Experience create)
+  public async Task<Experience> CreateExperience(Experience create, int id)
   {
-
+    create.PersonalId = id;
     await _context.Experiences.AddAsync(create);
     await _context.SaveChangesAsync();
     return create;

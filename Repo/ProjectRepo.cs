@@ -15,8 +15,9 @@ public class ProjectRepo : IProjectsRepo
   {
     _context = context;
   }
-  public async Task<Project> CreateProject(Project project)
+  public async Task<Project> CreateProject(Project project, int id)
   {
+    project.PersonalId = id;
     var p = await _context.AddAsync(project);
     if (p == null) throw new BusinessRuleException("Did not create project");
     await _context.SaveChangesAsync();

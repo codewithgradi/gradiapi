@@ -22,17 +22,18 @@ public class ProjectService
     var dtos = model.Select(x => _mapper.MapFromGet(x)).ToList();
     return dtos;
   }
-  public async Task<GetProjectDto> Put(PostProjectDto updateddto)
+  public async Task<GetProjectDto> Put(PostProjectDto updateddto, int id)
   {
-    var updated = await _repo.UpdateProject(updateddto);
+    var updated = await _repo.UpdateProject(updateddto, id);
     if (updated == null) throw new ReasourceConflictException("Could not update project details");
     var dto = _mapper.MapFromGet(updated);
     return dto;
 
   }
-  public async Task<GetProjectDto> Post()
+  public async Task<GetProjectDto> Post(PostProjectDto p, int id)
   {
-    var model = await _repo.CreateProject();
+    var toModel = _mapper.MapToModel(p);
+    var model = await _repo.CreateProject(toModel, id);
     if (model == null) throw new ReasourceConflictException("Could not creat project details");
 
     var dto = _mapper.MapFromGet(model);

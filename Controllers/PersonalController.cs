@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GradiApi.Controllers;
 
-[ApiController]
 [Route("api/[controller]")]
+[ApiController]
 public class PersonalController : ControllerBase
 {
   private readonly PersonalService _service;
@@ -14,17 +14,17 @@ public class PersonalController : ControllerBase
   {
     _service = service;
   }
-  [HttpGet]
-  public async Task<IActionResult> Get()
+  [HttpGet("{id:int}")]
+  public async Task<IActionResult> Get([FromRoute] int id)
   {
-    var res = await _service.GetProfile();
+    var res = await _service.GetProfile(id);
     if (res == null) return BadRequest("Could not load basic info");
     return Ok(res);
   }
   [HttpPost]
   public async Task<IActionResult> Post([FromBody] PostPersonalDto dto)
   {
-    var res = await _service.CreateProfile();
+    var res = await _service.CreateProfile(dto);
     if (res == null) return BadRequest("Could not save basic info");
     return CreatedAtAction(
       nameof(Get),
@@ -32,11 +32,11 @@ public class PersonalController : ControllerBase
       res
     );
   }
-  [HttpPut]
-  public async Task<IActionResult> Put([FromBody] PostPersonalDto dto)
+  [HttpPut("{id:int}")]
+  public async Task<IActionResult> Put([FromBody] PostPersonalDto dto, [FromRoute] int id)
   {
 
-    var res = await _service.UpdateProfile(dto);
+    var res = await _service.UpdateProfile(dto, id);
     if (res == null) return BadRequest("Could not update basic info.");
     return Ok(res);
   }

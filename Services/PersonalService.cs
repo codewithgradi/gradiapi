@@ -15,26 +15,27 @@ public class PersonalService
     _mapper = mappers;
 
   }
-  public async Task<GetPersonalDto> GetProfile()
+  public async Task<GetPersonalDto> GetProfile(int id)
   {
-    var model = await _repo.GetProfile();
+    var model = await _repo.GetProfile(id);
     if (model == null) throw new ReasourceNotFoundException("Could not get basic details");
     var dto = _mapper.MapToGet(model);
     return dto;
 
   }
-  public async Task<GetPersonalDto> UpdateProfile(PostPersonalDto updatedDto)
+  public async Task<GetPersonalDto> UpdateProfile(PostPersonalDto updatedDto, int id)
   {
-    var model = await _repo.UpdateProfile(updatedDto);
+    var model = await _repo.UpdateProfile(updatedDto, id);
     if (model == null) throw new ReasourceConflictException("Could not update basic details");
 
     var dto = _mapper.MapfromUpdate(model);
     return dto;
 
   }
-  public async Task<PersonalProfile> CreateProfile()
+  public async Task<PersonalProfile> CreateProfile(PostPersonalDto p)
   {
-    var model = await _repo.CreateProfile();
+    var toModel = _mapper.MapToModel(p);
+    var model = await _repo.CreateProfile(toModel);
     if (model == null) throw new ReasourceConflictException("Could not create basic details");
     var dto = _mapper.MapFromPost(model);
     return dto;

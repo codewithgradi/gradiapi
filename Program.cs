@@ -12,7 +12,6 @@ builder.Services
 .AddGlobalException()
 .AddMappers()
 .AddInfrastructure()
-
 ;
 
 var app = builder.Build();

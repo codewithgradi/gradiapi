@@ -6,6 +6,7 @@ using GradiApi.Exceptions;
 using GradiApi.Mappings;
 using GradiApi.Repo;
 using GradiApi.Services;
+using GradiApi.Interface;
 
 public static class ServiceExtentions
 {
@@ -23,9 +24,9 @@ public static class ServiceExtentions
     services.AddScoped<ExperienceService>();
     services.AddScoped<ProjectService>();
 
-    services.AddScoped<PersonalRepo>();
-    services.AddScoped<ExperienceRepo>();
-    services.AddScoped<ProjectRepo>();
+    services.AddScoped<IPersonalRepo, PersonalRepo>();
+    services.AddScoped<IExperienceRepo, ExperienceRepo>();
+    services.AddScoped<IProjectsRepo, ProjectRepo>();
 
     return services;
   }
@@ -69,14 +70,14 @@ public static class ServiceExtentions
   }
   public static IServiceCollection AddEnvironmentVariables(this IServiceCollection services)
   {
-    DotNetEnv.Env.Load();
+    DotNetEnv.Env.TraversePath().Load();
 
     return services;
   }
   public static IServiceCollection LoadDb(this IServiceCollection services, IConfiguration configuration)
   {
 
-    var env = configuration["Env"]?.ToLower();
+    var env = configuration["Env"] ?? "dev".ToLower();
     if (string.IsNullOrEmpty(env))
     {
       throw new InvalidOperationException("Missing env environment variable");
@@ -92,7 +93,7 @@ public static class ServiceExtentions
       throw new InvalidOperationException($"Missing connection string for environment : {env}");
     }
 
-    services.AddDbContext<AppDbContext>(opt => opt.UseNpgsql(connectionStrings));
+    services.AddDbContext<AppDbContext>(opt => opt.UseNpgsql(connectionStrings).UseSnakeCaseNamingConvention());
     return services;
   }
   public static IServiceCollection AllowCors(this IServiceCollection services, IConfiguration configuration)

@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GradiApi.Controllers;
 
-[ApiController]
 [Route("api/[controller]")]
+[ApiController]
 public class ProjectController : ControllerBase
 {
   private readonly ProjectService _service;
@@ -21,20 +21,20 @@ public class ProjectController : ControllerBase
     if (res == null) return BadRequest("Could not load experience");
     return Ok(res);
   }
-  [HttpPost]
-  public async Task<IActionResult> Post([FromBody] PostProjectDto dto)
+  [HttpPost("{id:int}")]
+  public async Task<IActionResult> Post([FromBody] PostProjectDto dto, [FromRoute] int id)
   {
-    var res = await _service.Post();
+    var res = await _service.Post(dto, id);
     if (res == null) return BadRequest("Could not add project");
     return CreatedAtAction(
       nameof(Get),
       new { Id = res.Id },
       res);
   }
-  [HttpPut]
-  public async Task<IActionResult> Put([FromBody] PostProjectDto updated)
+  [HttpPut("{id:int}")]
+  public async Task<IActionResult> Put([FromBody] PostProjectDto updated, [FromRoute] int id)
   {
-    var res = await _service.Put(updated);
+    var res = await _service.Put(updated, id);
     if (res == null) return BadRequest("Could not update experience");
     return NoContent();
   }
