@@ -95,4 +95,28 @@ public static class ServiceExtentions
     services.AddDbContext<AppDbContext>(opt => opt.UseNpgsql(connectionStrings));
     return services;
   }
+  public static IServiceCollection AllowCors(this IServiceCollection services, IConfiguration configuration)
+  {
+    services.AddCors(opt =>
+    {
+      opt.AddPolicy("AllowNextJs", builder =>
+      {
+        var frontendUrlDev = configuration["OtherSettings:FrontendUrl"]?.ToLower().Trim(' ', '"');
+        var frontendUrlProd = configuration["OtherSettings:FrontendUrlProd"]?.ToLower().Trim(' ', '"');
+        var backendLiveApiLink = configuration["OtherSettings:BackendLiveApiLink"]?.ToLower().Trim(' ', '"');
+
+        if (string.IsNullOrEmpty(frontendUrlDev) || string.IsNullOrEmpty(frontendUrlProd) || string.IsNullOrEmpty(backendLiveApiLink))
+        {
+          throw new ReasourceNotFoundException("There are no front-end urls.");
+        }
+
+        builder.WithOrigins([frontendUrlDev, frontendUrlProd, backendLiveApiLink])
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials();
+      });
+    });
+
+    return services;
+  }
 }

@@ -7,10 +7,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services
 .AddEnvironmentVariables()
+.AllowCors(builder.Configuration)
 .LoadDb(builder.Configuration)
 .AddGlobalException()
 .AddMappers()
 .AddInfrastructure()
+
 ;
 
 var app = builder.Build();
