@@ -1,10 +1,17 @@
 using GradiApi.Extentions;
 
+
+
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddOpenApi();
-builder.Services.AddGlobalException();
+builder.Services
+.AddEnvironmentVariables()
+.LoadDb(builder.Configuration)
+.AddGlobalException()
+.AddMappers()
+.AddInfrastructure()
+;
 
 var app = builder.Build();
 

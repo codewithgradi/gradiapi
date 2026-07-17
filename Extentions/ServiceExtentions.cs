@@ -1,5 +1,7 @@
 namespace GradiApi.Extentions;
 
+using Microsoft.EntityFrameworkCore;
+using GradiApi.Data;
 using GradiApi.Exceptions;
 using GradiApi.Mappings;
 using GradiApi.Repo;
@@ -16,6 +18,7 @@ public static class ServiceExtentions
   }
   public static IServiceCollection AddInfrastructure(this IServiceCollection services)
   {
+
     services.AddScoped<PersonalService>();
     services.AddScoped<ExperienceService>();
     services.AddScoped<ProjectService>();
@@ -64,5 +67,32 @@ public static class ServiceExtentions
     );
     return services;
   }
+  public static IServiceCollection AddEnvironmentVariables(this IServiceCollection services)
+  {
+    DotNetEnv.Env.Load();
 
+    return services;
+  }
+  public static IServiceCollection LoadDb(this IServiceCollection services, IConfiguration configuration)
+  {
+
+    var env = configuration["Env"]?.ToLower();
+    if (string.IsNullOrEmpty(env))
+    {
+      throw new InvalidOperationException("Missing env environment variable");
+    }
+    string? connectionStrings = env switch
+    {
+      "dev" => configuration.GetConnectionString("Dev"),
+      "prod" => configuration.GetConnectionString("Prod"),
+      _ => throw new InvalidOperationException("Unsupported environment")
+    };
+    if (string.IsNullOrEmpty(connectionStrings))
+    {
+      throw new InvalidOperationException($"Missing connection string for environment : {env}");
+    }
+
+    services.AddDbContext<AppDbContext>(opt => opt.UseNpgsql(connectionStrings));
+    return services;
+  }
 }

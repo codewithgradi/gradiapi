@@ -1,4 +1,5 @@
 using GradiApi.DTO;
+using GradiApi.Exceptions;
 using GradiApi.Interface;
 using GradiApi.Mappings;
 
@@ -17,12 +18,14 @@ public class ExperienceService
   public async Task<List<GetExperienceDto>> Get()
   {
     var model = await _repo.GetExperience();
+    if (model == null) throw new ReasourceConflictException("Could not get experience details");
     var dtos = model.Select(x => _mapper.MapFromGet(x)).ToList();
     return dtos;
   }
   public async Task<GetExperienceDto> Put(PostExperienceDto updateddto)
   {
     var updated = await _repo.UpdateExperience(updateddto);
+    if (updated == null) throw new ReasourceConflictException("Could not update experience details");
     var dto = _mapper.MapFromGet(updated);
     return dto;
 
@@ -30,6 +33,7 @@ public class ExperienceService
   public async Task<GetExperienceDto> Post()
   {
     var model = await _repo.CreateExperience();
+    if (model == null) throw new BusinessRuleException("Could not create experience details");
     var dto = _mapper.MapFromGet(model);
     return dto;
   }

@@ -1,4 +1,5 @@
 using GradiApi.DTO;
+using GradiApi.Exceptions;
 using GradiApi.Interface;
 using GradiApi.Mappings;
 
@@ -17,6 +18,7 @@ public class PersonalService
   public async Task<GetPersonalDto> GetProfile()
   {
     var model = await _repo.GetProfile();
+    if (model == null) throw new ReasourceNotFoundException("Could not get basic details");
     var dto = _mapper.MapToGet(model);
     return dto;
 
@@ -24,6 +26,8 @@ public class PersonalService
   public async Task<GetPersonalDto> UpdateProfile(PostPersonalDto updatedDto)
   {
     var model = await _repo.UpdateProfile(updatedDto);
+    if (model == null) throw new ReasourceConflictException("Could not update basic details");
+
     var dto = _mapper.MapfromUpdate(model);
     return dto;
 
@@ -31,6 +35,7 @@ public class PersonalService
   public async Task<PersonalProfile> CreateProfile()
   {
     var model = await _repo.CreateProfile();
+    if (model == null) throw new ReasourceConflictException("Could not create basic details");
     var dto = _mapper.MapFromPost(model);
     return dto;
   }

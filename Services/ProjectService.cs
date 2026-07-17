@@ -1,4 +1,5 @@
 using GradiApi.DTO;
+using GradiApi.Exceptions;
 using GradiApi.Interface;
 using GradiApi.Mappings;
 
@@ -17,12 +18,14 @@ public class ProjectService
   public async Task<List<GetProjectDto>> Get()
   {
     var model = await _repo.GetProjects();
+    if (model == null) throw new ReasourceConflictException("Could not get project details");
     var dtos = model.Select(x => _mapper.MapFromGet(x)).ToList();
     return dtos;
   }
   public async Task<GetProjectDto> Put(PostProjectDto updateddto)
   {
     var updated = await _repo.UpdateProject(updateddto);
+    if (updated == null) throw new ReasourceConflictException("Could not update project details");
     var dto = _mapper.MapFromGet(updated);
     return dto;
 
@@ -30,6 +33,8 @@ public class ProjectService
   public async Task<GetProjectDto> Post()
   {
     var model = await _repo.CreateProject();
+    if (model == null) throw new ReasourceConflictException("Could not creat project details");
+
     var dto = _mapper.MapFromGet(model);
     return dto;
   }
