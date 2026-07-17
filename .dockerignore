@@ -1,0 +1,27 @@
+# Ignore build outputs and compilation artifacts
+**/bin/
+**/obj/
+
+# Ignore local development configurations and secrets
+**/appsettings.Development.json
+**/.env
+**/.usersecrets/
+
+# Ignore source control metadata
+.git/
+.gitignore
+.gitattributes
+
+# Ignore IDE files and local cache folders
+.vs/
+.vscode/
+*.suo
+*.user
+*.sln.docstates
+
+# Ignore operating system system files
+.DS_Store
+Thumbs.db
+
+# Ignore local test execution outputs
+**/TestResults/
