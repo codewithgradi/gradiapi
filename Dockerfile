@@ -1,17 +1,17 @@
-# STAGE 1: Build & Publish
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+# STAGE 1: Build & Publish (Using .NET 10 SDK)
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
 # Copy the csproj file from the current root directory
 COPY *.csproj ./
 RUN dotnet restore
 
-# Copy all your local source code folders (Controllers, Data, Models, etc.)
+# Copy all your local source code folders
 COPY . .
 RUN dotnet publish -c Release -o /app/publish /p:UseAppHost=false
 
-# STAGE 2: Final Runtime
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+# STAGE 2: Final Runtime (Using .NET 10 ASP.NET Runtime)
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 WORKDIR /app
 COPY --from=build /app/publish .
 
