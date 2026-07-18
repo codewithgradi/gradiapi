@@ -1,5 +1,5 @@
 using GradiApi.Extentions;
-
+//To include signalR
 DotNetEnv.Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
