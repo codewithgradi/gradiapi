@@ -290,4 +290,3 @@ The API uses global exception handling and returns standardized problem details 
 
 ---
 
-If you want, I can also add a small section with explicit curl examples for each endpoint.
