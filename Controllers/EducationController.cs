@@ -26,16 +26,13 @@ namespace GradiApi.Controllers
     {
       var res = await _service.Post(body, id);
       if (res == null) return BadRequest("Could not create education");
-      return CreatedAtRoute(
-          nameof(Get),
-          new { Id = res.Id },
-          res
-      );
+      return StatusCode(StatusCodes.Status201Created, res);
+
 
 
     }
 
-    [HttpPut]
+    [HttpPut("{id:int}")]
     public async Task<IActionResult> Put([FromBody] PostEducationDto body, [FromRoute] int id)
     {
       var res = await _service.Put(body, id);

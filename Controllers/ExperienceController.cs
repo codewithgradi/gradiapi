@@ -33,10 +33,7 @@ public class ExperienceController : ControllerBase
   {
     var res = await _service.Post(experienceDto, id);
     if (res == null) return BadRequest("Did not save experience");
-    return CreatedAtRoute(
-      nameof(Get),
-      new { id = res.Id },
-      experienceDto);
+    return StatusCode(StatusCodes.Status201Created, res);
 
   }
 

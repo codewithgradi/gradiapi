@@ -26,10 +26,8 @@ public class ProjectController : ControllerBase
   {
     var res = await _service.Post(dto, id);
     if (res == null) return BadRequest("Could not add project");
-    return CreatedAtAction(
-      nameof(Get),
-      new { Id = res.Id },
-      res);
+    return StatusCode(StatusCodes.Status201Created, res);
+
   }
   [HttpPut("{id:int}")]
   public async Task<IActionResult> Put([FromBody] PostProjectDto updated, [FromRoute] int id)

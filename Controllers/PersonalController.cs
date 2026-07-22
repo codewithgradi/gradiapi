@@ -26,11 +26,8 @@ public class PersonalController : ControllerBase
   {
     var res = await _service.CreateProfile(dto);
     if (res == null) return BadRequest("Could not save basic info");
-    return CreatedAtAction(
-      nameof(Get),
-      new { Id = res.Id },
-      res
-    );
+    return StatusCode(StatusCodes.Status201Created, res);
+
   }
   [HttpPut("{id:int}")]
   public async Task<IActionResult> Put([FromBody] PostPersonalDto dto, [FromRoute] int id)

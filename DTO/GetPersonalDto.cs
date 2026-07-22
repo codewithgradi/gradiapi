@@ -16,8 +16,9 @@ namespace GradiApi.DTO
     public List<string> ProgrammingLanguages { get; set; }
     public List<string> TechStack { get; set; }
     public List<Socials>? Socials { get; set; }
-    public List<Project> Projects { get; set; }
-    public List<Experience> Experiences { get; set; }
+    public List<GetProjectDto> Projects { get; set; }
+    public List<GetEducationDto> Experiences { get; set; }
+    public List<GetEducationDto> Educations { get; set; }
 
   }
 
