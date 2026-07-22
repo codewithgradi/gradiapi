@@ -15,6 +15,7 @@ public static class ServiceExtentions
     services.AddSingleton<PersonalMappers>();
     services.AddSingleton<ProjectMappers>();
     services.AddSingleton<ExperienceMappers>();
+    services.AddSingleton<EducationMappers>();
     return services;
   }
   public static IServiceCollection AddInfrastructure(this IServiceCollection services)
@@ -23,10 +24,12 @@ public static class ServiceExtentions
     services.AddScoped<PersonalService>();
     services.AddScoped<ExperienceService>();
     services.AddScoped<ProjectService>();
+    services.AddScoped<EducationService>();
 
     services.AddScoped<IPersonalRepo, PersonalRepo>();
     services.AddScoped<IExperienceRepo, ExperienceRepo>();
     services.AddScoped<IProjectsRepo, ProjectRepo>();
+    services.AddScoped<IEducationRepo, EducationRepo>();
 
     return services;
   }
