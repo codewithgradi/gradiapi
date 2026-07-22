@@ -118,13 +118,13 @@ public static class ServiceExtentions
         var frontendUrlDev = configuration["OtherSettings:FrontendUrl"]?.ToLower().Trim(' ', '"');
         var frontendUrlProd = configuration["OtherSettings:FrontendUrlProd"]?.ToLower().Trim(' ', '"');
         var backendLiveApiLink = configuration["OtherSettings:BackendLiveApiLink"]?.ToLower().Trim(' ', '"');
-
-        if (string.IsNullOrEmpty(frontendUrlDev) || string.IsNullOrEmpty(frontendUrlProd) || string.IsNullOrEmpty(backendLiveApiLink))
+        var mcpLink = configuration["Mcp"]?.ToLower().Trim(' ', '"');
+        if (string.IsNullOrEmpty(frontendUrlDev) || string.IsNullOrEmpty(mcpLink) || string.IsNullOrEmpty(frontendUrlProd) || string.IsNullOrEmpty(backendLiveApiLink))
         {
           throw new ReasourceNotFoundException("There are no front-end urls.");
         }
 
-        builder.WithOrigins([frontendUrlDev, frontendUrlProd, backendLiveApiLink])
+        builder.WithOrigins([mcpLink, frontendUrlDev, frontendUrlProd, backendLiveApiLink])
         .AllowAnyMethod()
         .AllowAnyHeader()
         .AllowCredentials();
