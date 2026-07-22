@@ -9,6 +9,7 @@ namespace GradiApi.Data
     public DbSet<Experience> Experiences { get; set; }
     public DbSet<Project> Projects { get; set; }
     public DbSet<Personal> Personal { get; set; }
+    public DbSet<Education> Education { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
