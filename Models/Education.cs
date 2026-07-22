@@ -8,6 +8,9 @@ namespace GradiApi.Models
     public int FromYear { get; set; }
     public int ToYear { get; set; }
     public DateTime UpdatedAt { get; set; }
+
+    public int PersonalId { get; set; }
+    public Personal Personal { get; set; }
   }
 
 }

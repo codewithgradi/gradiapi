@@ -19,6 +19,7 @@ namespace GradiApi.Models
 
     public int ExperienceId { get; set; }
     public int ProjectId { get; set; }
+    public int EducationId { get; set; }
     public List<Project> Projects { get; set; }
     public List<Experience> Experiences { get; set; }
     public List<Education> Educations { get; set; }
