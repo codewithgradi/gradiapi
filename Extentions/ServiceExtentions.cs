@@ -10,6 +10,16 @@ using GradiApi.Interface;
 
 public static class ServiceExtentions
 {
+  public static IServiceCollection ConfigureMcp(this IServiceCollection services)
+  {
+    services.AddMcpServer().WithHttpTransport(
+    opt =>
+    {
+      opt.Stateless = true;
+    }
+        ).WithToolsFromAssembly();
+    return services;
+  }
   public static IServiceCollection AddMappers(this IServiceCollection services)
   {
     services.AddSingleton<PersonalMappers>();

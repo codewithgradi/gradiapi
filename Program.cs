@@ -18,6 +18,7 @@ builder.Services
 .AddGlobalException()
 .AddMappers()
 .AddInfrastructure()
+.ConfigureMcp()
 ;
 
 var app = builder.Build();
@@ -33,6 +34,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapControllers();
+app.MapMcp("/mcp");
 
 app.Run();
 
