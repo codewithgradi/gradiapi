@@ -7,17 +7,15 @@ using GradiApi.Mappings;
 using GradiApi.Repo;
 using GradiApi.Services;
 using GradiApi.Interface;
+using GradiApi.MCP;
 
 public static class ServiceExtentions
 {
   public static IServiceCollection ConfigureMcp(this IServiceCollection services)
   {
-    services.AddMcpServer().WithHttpTransport(
-    opt =>
-    {
-      opt.Stateless = true;
-    }
-        ).WithToolsFromAssembly();
+    services.AddMcpServer()
+        .WithHttpTransport(opt => opt.Stateless = true)
+        .WithToolsFromAssembly();
     return services;
   }
   public static IServiceCollection AddMappers(this IServiceCollection services)
@@ -30,6 +28,8 @@ public static class ServiceExtentions
   }
   public static IServiceCollection AddInfrastructure(this IServiceCollection services)
   {
+    services.AddSingleton<McpPersonalTool>();
+
 
     services.AddScoped<PersonalService>();
     services.AddScoped<ExperienceService>();
@@ -111,23 +111,20 @@ public static class ServiceExtentions
   }
   public static IServiceCollection AllowCors(this IServiceCollection services, IConfiguration configuration)
   {
+    var frontendUrl = configuration["OtherSettings:FrontendUrl"];
+    var frontendUrlDev = configuration["OtherSettings:FrontendUrlDev"];
+    if (string.IsNullOrEmpty(frontendUrl) || string.IsNullOrEmpty(frontendUrlDev))
+    {
+      throw new ReasourceNotFoundException("missing front end links");
+    }
     services.AddCors(opt =>
     {
       opt.AddPolicy("AllowNextJs", builder =>
       {
-        var frontendUrlDev = configuration["OtherSettings:FrontendUrl"]?.ToLower().Trim(' ', '"');
-        var frontendUrlProd = configuration["OtherSettings:FrontendUrlProd"]?.ToLower().Trim(' ', '"');
-        var backendLiveApiLink = configuration["OtherSettings:BackendLiveApiLink"]?.ToLower().Trim(' ', '"');
-        var mcpLink = configuration["Mcp"]?.ToLower().Trim(' ', '"');
-        if (string.IsNullOrEmpty(frontendUrlDev) || string.IsNullOrEmpty(mcpLink) || string.IsNullOrEmpty(frontendUrlProd) || string.IsNullOrEmpty(backendLiveApiLink))
-        {
-          throw new ReasourceNotFoundException("There are no front-end urls.");
-        }
-
-        builder.WithOrigins([mcpLink, frontendUrlDev, frontendUrlProd, backendLiveApiLink])
-        .AllowAnyMethod()
-        .AllowAnyHeader()
-        .AllowCredentials();
+        builder.WithOrigins([frontendUrl, frontendUrlDev])
+                 .AllowAnyMethod()
+                 .AllowAnyHeader()
+                 .AllowCredentials();
       });
     });
 

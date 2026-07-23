@@ -32,9 +32,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-app.MapControllers();
+app.UseCors("AllowNextJs");
 app.MapMcp("/mcp");
+app.MapControllers();
 
 app.Run();
 
