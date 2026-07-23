@@ -32,6 +32,9 @@ public static class ServiceExtentions
   public static IServiceCollection AddInfrastructure(this IServiceCollection services)
   {
     services.AddSingleton<McpPersonalTool>();
+    services.AddSingleton<McpPersonalTool>();
+    services.AddSingleton<McpExperienceTool>();
+    services.AddSingleton<McpProjectsTool>();
 
 
     services.AddScoped<PersonalService>();
