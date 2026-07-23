@@ -8,6 +8,8 @@ using GradiApi.Repo;
 using GradiApi.Services;
 using GradiApi.Interface;
 using GradiApi.MCP;
+using Microsoft.Extensions.AI;
+using OpenAI;
 
 public static class ServiceExtentions
 {
@@ -128,6 +130,19 @@ public static class ServiceExtentions
       });
     });
 
+    return services;
+  }
+  public static IServiceCollection AddOpenAI(this IServiceCollection services, IConfiguration configuration)
+  {
+    string apiKey = configuration["OpenAI:ApiKey"] ?? throw new InvalidOperationException("Missing OpenAI api key");
+    services.AddSingleton<IChatClient>(x =>
+    {
+      IChatClient client = new
+       OpenAIClient(apiKey)
+      .GetChatClient("gpt-4o")
+      .AsIChatClient();
+      return new ChatClientBuilder(client).UseFunctionInvocation().Build();
+    });
     return services;
   }
 }

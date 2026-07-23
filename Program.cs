@@ -19,6 +19,7 @@ builder.Services
 .AddMappers()
 .AddInfrastructure()
 .ConfigureMcp()
+.AddOpenAI(builder.Configuration)
 ;
 
 var app = builder.Build();
